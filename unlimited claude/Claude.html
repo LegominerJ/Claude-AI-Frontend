@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Claude Interface - Fully Functional</title>
     <script src="https://js.puter.com/v2/"></script>
+    <link rel="stylesheet" crossorigin href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/c6a992d55-BrYOtOhO.css">
     <style>
         * {
             margin: 0;
@@ -599,6 +600,54 @@
             white-space: pre;
         }
 
+        /* Model Dropdown */
+        .model-dropdown {
+            position: fixed;
+            z-index: 1000;
+            background-color: #2a2a2a;
+            border: 1px solid #404040;
+            border-radius: 10px;
+            padding: 6px;
+            min-width: 200px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            max-height: 420px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #404040 #2a2a2a;
+        }
+        .model-group-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #ff6b35;
+            padding: 8px 10px 4px;
+        }
+        .model-option {
+            display: block;
+            width: 100%;
+            background: none;
+            border: none;
+            color: #b3b3b3;
+            font-size: 13px;
+            padding: 7px 10px;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: background-color 0.15s, color 0.15s;
+            font-family: inherit;
+        }
+        .model-option:hover {
+            background-color: #404040;
+            color: #fff;
+        }
+        .model-option.active {
+            color: #ff6b35;
+            font-weight: 600;
+        }
+        .model-option.active::before {
+            content: "✓ ";
+        }
         @media (max-width: 768px) {
             .sidebar {
                 width: 240px;
@@ -720,7 +769,7 @@
                     
                     <div class="model-selector">
                         <button class="model-btn" id="modelSelector">
-                            <span id="currentModel">Claude Sonnet 4</span>
+                            <span id="currentModel">Claude Opus 4.7</span>
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
                             </svg>
@@ -783,7 +832,7 @@
                         <textarea class="search-input" id="chatInput" placeholder="Message Claude..." rows="1"></textarea>
                         <div class="search-actions">
                             <button class="model-btn" id="chatModelSelector" style="padding: 6px 8px; font-size: 12px;">
-                                <span id="chatCurrentModel">Sonnet 4</span>
+                                <span id="chatCurrentModel">Opus 4.7</span>
                             </button>
                             <button class="send-btn" id="chatSendBtn">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -800,9 +849,20 @@
     <script>
         // Global state
         const availableModels = [
-            { apiName: 'claude-sonnet-4', displayName: 'Claude Sonnet 4', shortName: 'Sonnet 4' },
-            { apiName: 'claude-opus-4', displayName: 'Claude Opus 4', shortName: 'Opus 4' },
-            { apiName: 'claude-3-7-sonnet', displayName: 'Claude 3.7 Sonnet', shortName: 'Sonnet 3.7' }
+            // Claude 4.7
+            { apiName: 'claude-opus-4-7',                      displayName: 'Claude Opus 4.7',              shortName: 'Opus 4.7',    group: 'Claude 4.7' },
+            // Claude 4.6
+            { apiName: 'claude-sonnet-4-6',                    displayName: 'Claude Sonnet 4.6',            shortName: 'Sonnet 4.6',  group: 'Claude 4.6' },
+            { apiName: 'claude-opus-4-6',                      displayName: 'Claude Opus 4.6',              shortName: 'Opus 4.6',    group: 'Claude 4.6' },
+            // Claude 4.5
+            { apiName: 'claude-sonnet-4-5',                    displayName: 'Claude Sonnet 4.5',            shortName: 'Sonnet 4.5',  group: 'Claude 4.5' },
+            { apiName: 'claude-haiku-4-5',                     displayName: 'Claude Haiku 4.5',             shortName: 'Haiku 4.5',   group: 'Claude 4.5' },
+            { apiName: 'claude-opus-4-5',                      displayName: 'Claude Opus 4.5',              shortName: 'Opus 4.5',    group: 'Claude 4.5' },
+            // Claude 4.1
+            { apiName: 'claude-opus-4-1',                      displayName: 'Claude Opus 4.1',              shortName: 'Opus 4.1',    group: 'Claude 4.1' },
+            // Claude 4
+            { apiName: 'claude-sonnet-4',                      displayName: 'Claude Sonnet 4',              shortName: 'Sonnet 4',    group: 'Claude 4' },
+            { apiName: 'claude-opus-4',                        displayName: 'Claude Opus 4',                shortName: 'Opus 4',      group: 'Claude 4' },
         ];
         let currentModel = availableModels[0].apiName;
         let chatHistory = [];
@@ -967,12 +1027,62 @@ If you are running this from a local server (like localhost), the issue is almos
             document.getElementById('chatCurrentModel').textContent = model.shortName;
         }
 
-        function toggleModel() {
-            const currentIndex = availableModels.findIndex(m => m.apiName === currentModel);
-            const nextIndex = (currentIndex + 1) % availableModels.length;
-            currentModel = availableModels[nextIndex].apiName;
-            updateModelDisplay();
-            console.log('🔄 Model switched to:', availableModels[nextIndex].displayName);
+        function buildModelDropdown() {
+            const existing = document.getElementById('modelDropdown');
+            if (existing) existing.remove();
+
+            const dropdown = document.createElement('div');
+            dropdown.id = 'modelDropdown';
+            dropdown.className = 'model-dropdown';
+
+            const groups = [...new Set(availableModels.map(m => m.group))];
+            groups.forEach(group => {
+                const label = document.createElement('div');
+                label.className = 'model-group-label';
+                label.textContent = group;
+                dropdown.appendChild(label);
+
+                availableModels.filter(m => m.group === group).forEach(model => {
+                    const item = document.createElement('button');
+                    item.className = 'model-option' + (model.apiName === currentModel ? ' active' : '');
+                    item.textContent = model.displayName;
+                    item.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        currentModel = model.apiName;
+                        updateModelDisplay();
+                        closeModelDropdown();
+                        console.log('🔄 Model switched to:', model.displayName);
+                    });
+                    dropdown.appendChild(item);
+                });
+            });
+
+            document.body.appendChild(dropdown);
+
+            const isChatActive = document.getElementById('chatContainer').classList.contains('active');
+            const activeBtn = isChatActive
+                ? document.getElementById('chatModelSelector')
+                : document.getElementById('modelSelector');
+
+            const rect = activeBtn.getBoundingClientRect();
+            dropdown.style.bottom = (window.innerHeight - rect.top + 8) + 'px';
+            dropdown.style.left = rect.left + 'px';
+
+            setTimeout(() => {
+                document.addEventListener('click', closeModelDropdown, { once: true });
+            }, 0);
+        }
+
+        function closeModelDropdown() {
+            const dd = document.getElementById('modelDropdown');
+            if (dd) dd.remove();
+        }
+
+        function toggleModel(e) {
+            e.stopPropagation();
+            const dd = document.getElementById('modelDropdown');
+            if (dd) { closeModelDropdown(); return; }
+            buildModelDropdown();
         }
 
         async function handleWelcomeMessage() {

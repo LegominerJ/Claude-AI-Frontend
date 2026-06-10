@@ -1,13 +1,6 @@
 # 🤖 Free, Self-Hosted Claude AI Interface
 
-A fully functional, polished, and self-hosted web interface for Anthropic's Claude AI. This project runs entirely in your browser, using the free tier of **Puter.js** for secure access to the Claude API. No backend, no server costs, 100% free.
-
----
-
-### ✨ Live Demo
-
-
-![Demo GIF of the Claude UI in action](demo.gif)
+A and self-hosted web interface for Anthropic's Claude AI. This project runs in your browser, using the free tier of **Puter.js** for secure--and free!--access to Claude.
 
 ---
 
@@ -24,7 +17,7 @@ A fully functional, polished, and self-hosted web interface for Anthropic's Clau
 
 ### ❓ How It Works
 
-This interface does **not** use a pirated or reverse-engineered API. It uses the official, legitimate **Puter.js** library. When you first use the app, it will ask for a one-time authentication with your Puter account. This securely connects the web app to **your own account's** free Claude API access, ensuring everything is secure and above board.
+This frontend uses the official **Puter.js** library. When you first use the app, it will ask for a one-time authentication with your Puter account. This securely connects the web app to **your own account's** free Claude API access, ensuring everything is secure and above board.
 
 ---
 
@@ -86,4 +79,4 @@ If you find this tool useful, please consider making a small donation to support
 
 ### 📄 License
 
-This project is licensed under the **MIT License**.
+This project is licensed under the **Blank License**.
