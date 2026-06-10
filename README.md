@@ -59,16 +59,6 @@ That's it! There are no other libraries or frameworks to install.
 
 ---
 
-### ❤️ Support The Project
-
-If you find this tool useful, please consider making a small donation to support future development. Thank you!
-
-<a href="https://www.paypal.com/paypalme/itkcartoons" target="_blank">
-  <img src="https://img.shields.io/badge/Donate-PayPal-blue.svg?logo=paypal&style=for-the-badge" alt="Donate with PayPal">
-</a>
-
----
-
 ### 🛠️ Tech Stack
 
 *   **Core:** Vanilla JavaScript (ES6+), HTML5, CSS3
