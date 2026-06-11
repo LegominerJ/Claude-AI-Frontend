@@ -1,4 +1,4 @@
-# 🤖 Free, Self-Hosted Claude AI Interface
+# Self-Hosted Claude AI Interface
 
 A and self-hosted web interface for Anthropic's Claude AI. This project runs in your browser, using the free tier of **Puter.js** for secure--and free!--access to Claude.
 
@@ -7,8 +7,8 @@ A and self-hosted web interface for Anthropic's Claude AI. This project runs in 
 ### 🚀 Key Features
 
 *   ✅ **100% Free Access:** Leverages the free tier of Puter.js to interact with the Claude API at no cost.
-*   🎨 **Polished UI:** A clean, modern interface inspired by the official Claude UI, with light and dark mode support.
-*   📄 **Artifact Generation:** Automatically renders code blocks into beautiful, interactive "artifact" canvases with syntax highlighting, copy, download, and even an HTML preview feature.
+*   🎨 **Polished UI:** A clean, modern interface inspired by the official Claude UI.
+*   📄 **Artifact Generation:** Automatically renders code blocks into interactive "artifact" canvases with syntax highlighting, copy, download, and even an HTML preview feature.
 *   💬 **Streaming Responses:** Watch Claude's responses appear in real-time, just like the official experience.
 *   📂 **Local Chat History:** Remembers your recent conversations in your browser's local storage.
 *   🔐 **Secure Authentication:** Handles Puter.js authentication directly in the browser with a clear, user-friendly flow.
@@ -17,7 +17,7 @@ A and self-hosted web interface for Anthropic's Claude AI. This project runs in 
 
 ### ❓ How It Works
 
-This frontend uses the official **Puter.js** library. When you first use the app, it will ask for a one-time authentication with your Puter account. This securely connects the web app to **your own account's** free Claude API access, ensuring everything is secure and above board.
+This frontend uses the official **Puter.js** library. When you first use the app, it will ask for a one-time authentication with your Puter account. This securely connects the web app to **your own account's** free Claude API access, ensuring everything is secure.
 
 ---
 
@@ -55,7 +55,7 @@ That's it! There are no other libraries or frameworks to install.
     ```
 4.  **Open Browser:** Open your web browser and go to the address `http://localhost:8000`.
 
-**First Use:** The first time you send a message, a small popup will appear asking you to authenticate with Puter. Please **allow the popup** to enable the free AI access.
+**First Use:** The first time you send a message, a small popup will appear asking you to authenticate with Puter. **Allow the popup** to enable the free AI access.
 
 ---
 
