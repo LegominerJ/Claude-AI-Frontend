@@ -1,6 +1,6 @@
 # Self-Hosted Claude AI Interface
 
-A and self-hosted web interface for Anthropic's Claude AI. This project runs in your browser, using the free tier of **Puter.js** for secure--and free!--access to Claude.
+A and self-hosted web interface for Anthropic's Claude AI. This project runs in your browser, using **Puter.js** for secure access to Claude.
 
 ---
 
@@ -8,22 +8,20 @@ A and self-hosted web interface for Anthropic's Claude AI. This project runs in 
 
 *   ✅ **100% Free Access:** Leverages the free tier of Puter.js to interact with the Claude API at no cost.
 *   🎨 **Polished UI:** A clean, modern interface inspired by the official Claude UI.
-*   📄 **Artifact Generation:** Automatically renders code blocks into interactive "artifact" canvases with syntax highlighting, copy, download, and even an HTML preview feature.
-*   💬 **Streaming Responses:** Watch Claude's responses appear in real-time, just like the official experience.
-*   📂 **Local Chat History:** Remembers your recent conversations in your browser's local storage.
+*   📄 **Artifact Generation:** Automatically renders code blocks into interactive "artifact" canvases with syntax highlighting, copy, download, and even an HTML preview feature.<!--*   📂 **Local Chat History:** Remembers your recent conversations in your browser's local storage.-->
 *   🔐 **Secure Authentication:** Handles Puter.js authentication directly in the browser with a clear, user-friendly flow.
 
 ---
 
 ### ❓ How It Works
 
-This frontend uses the official **Puter.js** library. When you first use the app, it will ask for a one-time authentication with your Puter account. This securely connects the web app to **your own account's** free Claude API access, ensuring everything is secure.
+This frontend uses the official **Puter.js** library. When you first use the app, it will ask for a one-time authentication with your Puter account. This securely connects the web app to **your own account's** Claude API access, ensuring everything is secure.
 
 ---
 
 ### ▶️ Getting Started (How to Run)
 
-Because browsers have security rules (CORS), you cannot simply open the `index.html` file directly. You must run it from a **local web server**. I've made this easy for you.
+Because browsers have security rules (CORS), you cannot simply open the `index.html` file directly. You must run it from a **local web server**. This is made easy through Python 3.
 
 ### ✅ Prerequisites
 
@@ -55,7 +53,7 @@ That's it! There are no other libraries or frameworks to install.
     ```
 4.  **Open Browser:** Open your web browser and go to the address `http://localhost:8000`.
 
-**First Use:** The first time you send a message, a small popup will appear asking you to authenticate with Puter. **Allow the popup** to enable the free AI access.
+**First Use:** The first time you send a message, a small popup will appear asking you to authenticate with Puter. **Allow the popup** to enable the API access.
 
 ---
 
@@ -69,4 +67,4 @@ That's it! There are no other libraries or frameworks to install.
 
 ### 📄 License
 
-This project is licensed under the **Blank License**.
+This project is **not liscensed**.
