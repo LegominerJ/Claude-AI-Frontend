@@ -763,8 +763,7 @@
                 class="input-ta"
                 id="welcome-input"
                 placeholder="How can I help you?"
-                rows="1">
-              </textarea>
+                rows="1"></textarea>
               <div class="input-toolbar">
                 <div class="input-left">
                   <button class="model-chip" id="w-model-btn">
@@ -904,6 +903,7 @@
   /* Mutable — replaced in place once puter.ai.listModels() resolves.
      Starts populated with the fallback set so the UI is never empty/blank. */
   let MODELS = FALLBACK_MODELS.slice();
+  let userSelectedModel = false;
 
   const S = {
     model:       pickDefaultModel(MODELS),
@@ -1060,7 +1060,11 @@
 
         MODELS = list;
         MODELS_SOURCE = 'live';
-        if (!MODELS.find(m => m.api === S.model)) S.model = pickDefaultModel(MODELS);
+        if (!userSelectedModel) {
+          S.model = pickDefaultModel(MODELS);
+        } else if (!MODELS.find(m => m.api === S.model)) {
+          S.model = pickDefaultModel(MODELS);
+        }
         syncModelLabels();
         if (!silent) toast('Model list updated');
         return true;
@@ -1172,6 +1176,7 @@
           ${model.display}`;
         btn.addEventListener('click', e => {
           e.stopPropagation();
+          userSelectedModel = true;
           S.model = model.api;
           syncModelLabels();
           closeDD();
